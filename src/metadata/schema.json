@@ -1,0 +1,1311 @@
+{
+    "package": "Lufthansa",
+    "tagline": "Lufthansa API",
+    "description": "Is the largest German airline and, when combined with its subsidiaries, also the largest airline in Europe, in terms of fleet size.",
+    "image": "https:\/\/logo.clearbit.com\/\/www.lufthansa.com",
+    "repo": "https:\/\/github.com\/RapidSoftwareSolutions\/Marketplace-Lufthansa-Package",
+    "keywords": [
+        "API",
+        "Fly",
+        "German",
+        "Airline",
+        "Airports"
+    ],
+    "accounts": {
+        "domain": "www.lufthansa.com",
+        "credentials": [
+            "clientId",
+            "clientSecret"
+        ]
+    },
+    "steps": [
+        "Register on the https:\/\/www.lufthansa.com",
+        "Create an application for a new API credentials https:\/\/developer.lufthansa.com\/apps\/mykeys",
+        "After creation app , you will see clientId and clientSecret"
+    ],
+    "blocks": [
+        {
+            "name": "getAccessToken",
+            "description": "Access to our services is controlled via tokens (Oauth 2.0). To get a token you must call our token end-point and supply your client key and client secret. Tokens remain valid for a limited time.",
+            "args": [
+                {
+                    "name": "clientId",
+                    "type": "credentials",
+                    "info": "Your client id.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "client_id"
+                    }
+                },
+                {
+                    "name": "clientSecret",
+                    "type": "credentials",
+                    "info": "Your client secret.",
+                    "required": true,
+                    "vendorSchema": {
+                        "name": "client_secret"
+                    }
+                }
+            ],
+            "vendorRequest": {
+                "url": "https://api.lufthansa.com/v1/oauth/token",
+                "method": "post",
+                "requestParameters": [
+                    {
+                        "type": "form_params",
+                        "parameters": [
+                            "client_secret",
+                            "client_id"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllCountrys",
+            "description": "Get List all countries. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/countries\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCountryByCode",
+            "description": "Get countries by code. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "countryCode",
+                    "type": "String",
+                    "info": "2-letter ISO 3166-1 country code. Example - DK.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/countries\/{$data['countryCode']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllCities",
+            "description": "List all cities. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/cities\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getCityByCode",
+            "description": "Get one specific city. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "cityCode",
+                    "type": "String",
+                    "info": "3-letter IATA city code.Example - BER.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/cities\/{$data['cityCode']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllAirports",
+            "description": "Get all airports. All airports response is very large. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                },
+                {
+                    "name": "LHoperated",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Restrict the results to locations with flights operated by LH (false=0, true=1). ",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airports\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang",
+                            "LHoperated"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAirportByCode",
+            "description": "Get airport by code. All airports response is very large. It is possible to request the response in a specific language.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "cityCode",
+                    "type": "String",
+                    "info": "3-letter IATA airport code.Example - TXL.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                },
+                {
+                    "name": "LHoperated",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Restrict the results to locations with flights operated by LH (false=0, true=1). ",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airports\/{$data['cityCode']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "lang",
+                            "LHoperated"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getNearestAirports",
+            "description": "List the 5 closest airports to the given latitude and longitude, irrespective of the radius of the reference point.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "coordinates",
+                    "type": "Map",
+                    "info": "Latitude and Longitude in decimal format to at most 3 decimal places.",
+                    "required": true
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airports\/nearest\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllAirlines",
+            "description": "Get List all airlines.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airlines\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAirlineByCode",
+            "description": "Get airline by code.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "airlineCode",
+                    "type": "String",
+                    "info": "2-character IATA airline\/carrier code.Example - LH.",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airlines\/{$data['airlineCode']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllAircraftTypes",
+            "description": "Get List all aircraft types.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/aircraft\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getSeatMap",
+            "description": "Cabin layout and seat characteristics.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "flightNumber",
+                    "type": "String",
+                    "info": "Flight number including carrier code and any suffix (e.g. 'LH2037')",
+                    "required": true
+                },
+                {
+                    "name": "origin",
+                    "type": "String",
+                    "info": "Departure airport. 3-letter IATA airport code (e.g. 'TXL').",
+                    "required": true
+                },
+                {
+                    "name": "destination",
+                    "type": "String",
+                    "info": "Destination airport. 3-letter IATA airport code (e.g. 'MUC').",
+                    "required": true
+                },
+                {
+                    "name": "date",
+                    "type": "DatePicker",
+                    "info": "Departure date (YYYY-MM-DD).",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "cabinClass",
+                    "type": "Select",
+                    "options": [
+                        "economy",
+                        "premium economy",
+                        "business",
+                        "first"
+                    ],
+                    "info": "Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/offers\/seatmaps\/{$data['flightNumber']}\/{$data['origin']}\/{$data['destination']}\/{$data['date']}\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getLoungeInformation",
+            "description": "Get List all aircraft types.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "language",
+                    "type": "String",
+                    "info": "2 letter ISO 3166-1 language code.",
+                    "required": false,
+                    "vendorSchema": {
+                        "name": "lang"
+                    }
+                },
+                {
+                    "name": "location",
+                    "type": "String",
+                    "info": "3-leter IATA airport or city code (e.g. 'ZRH').",
+                    "required": true
+                },
+                {
+                    "name": "cabinClass",
+                    "type": "Select",
+                    "options": [
+                        "economy",
+                        "premium economy",
+                        "business",
+                        "first"
+                    ],
+                    "info": "Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.",
+                    "required": false
+                },
+                {
+                    "name": "tierCode",
+                    "type": "Select",
+                    "options": [
+                        "frequent traveller",
+                        "star alliance gold",
+                        "senator",
+                        "HON circle member"
+                    ],
+                    "info": "Frequent flyer level ('FTL', 'SGC', 'SEN', 'HON').",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/offers\/lounges\/{$data['location']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "cabinClass",
+                            "tierCode",
+                            "lang"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getFlightStatus",
+            "description": "Get status of a particular flight (boarding, delayed, etc.).",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "date",
+                    "type": "DatePicker",
+                    "info": "The departure date (YYYY-MM-DD) in the local time of the departure airport",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "flightNumber",
+                    "type": "String",
+                    "info": "Flight number including carrier code and any suffix (e.g. 'LH400').",
+                    "required": true
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/operations\/flightstatus\/{$data['flightNumber']}\/{$data['date']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getFlightStatusByRoute",
+            "description": "Status of flights between a given origin and destination on a given date.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "origin",
+                    "type": "String",
+                    "info": "Departure airport. 3-letter IATA airport code (e.g. 'TXL').",
+                    "required": true
+                },
+                {
+                    "name": "destination",
+                    "type": "String",
+                    "info": "Destination airport. 3-letter IATA airport code (e.g. 'MUC').",
+                    "required": true
+                },
+                {
+                    "name": "date",
+                    "type": "DatePicker",
+                    "info": "The departure date (YYYY-MM-DD) in the local time of the departure airport",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/operations\/flightstatus\/route\/{$data['origin']}\/{$data['destination']}\/{$data['date']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getFlightStatusAtArrivalAirport",
+            "description": "Status of all arrivals at a given airport up to 4 hours from the provided date time.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "airportCode",
+                    "type": "String",
+                    "info": "3-letter IATA aiport code (e.g. 'ZRH').",
+                    "required": true
+                },
+                {
+                    "name": "fromDateTime",
+                    "type": "DatePicker",
+                    "info": "Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm).",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d\/TH:i}"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/operations\/flightstatus\/arrivals\/{$data['airportCode']}\/{$data['fromDateTime']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getFlightStatusAtDepartureAirport",
+            "description": "Status of all departures from a given airport up to 4 hours from the provided date time.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "airportCode",
+                    "type": "String",
+                    "info": "3-letter IATA aiport code (e.g. 'ZRH').",
+                    "required": true
+                },
+                {
+                    "name": "fromDateTime",
+                    "type": "DatePicker",
+                    "info": "Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm).",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d\/TH:i}"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/operations\/flightstatus\/departures\/{$data['airportCode']}\/{$data['fromDateTime']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getFlightSchedules",
+            "description": "Scheduled flights between given airports on a given date.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "origin",
+                    "type": "String",
+                    "info": "Departure airport. 3-letter IATA airport code (e.g. 'TXL').",
+                    "required": true
+                },
+                {
+                    "name": "destination",
+                    "type": "String",
+                    "info": "Destination airport. 3-letter IATA airport code (e.g. 'MUC').",
+                    "required": true
+                },
+                {
+                    "name": "directFlights",
+                    "type": "Select",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "info": "Show only direct flights (false=0, true=1). Default is false.",
+                    "required": false
+                },
+                {
+                    "name": "fromDateTime",
+                    "type": "DatePicker",
+                    "info": "Local departure date and optionally departure time (YYYY-MM-DD or YYYY-MM-DDTHH:mm). When not provided, time is assumed to be 00:01.",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d\/TH:i}"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/operations\/schedules\/{$data['origin']}\/{$data['destination']}\/{$data['fromDateTime']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "directFlights"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getShipmentTracking",
+            "description": "With this tracking service you can easily retrieve your shipment or flight status information.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "aWBPrefix",
+                    "type": "String",
+                    "info": "aWBPrefix : Represents the airline that is the owner of this AWB, i.e. `020` = Lufthansa Cargo, format : [0-9]{3} e.g. 020.",
+                    "required": true
+                },
+                {
+                    "name": "aWBNumber",
+                    "type": "String",
+                    "info": "aWBNumber : The Air Waybill Number , format : [0-9]{8} e.g. 08002050.",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/cargo\/shipmentTracking\/{$data['aWBPrefix']}-{$data['aWBNumber']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": []
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAllCargoFlights",
+            "description": "Retrieve a list of all possible flights (both direct and connecting) between two airports on a given date. Routes are available for today and up to days in the future.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "origin",
+                    "type": "String",
+                    "info": "Departure airport. 3-letter IATA airport code (e.g. 'TXL').",
+                    "required": true
+                },
+                {
+                    "name": "destination",
+                    "type": "String",
+                    "info": "Destination airport. 3-letter IATA airport code (e.g. 'MUC').",
+                    "required": true
+                },
+                {
+                    "name": "fromDate",
+                    "type": "DatePicker",
+                    "info": "Departure date in the local time of the departure airport. Based on LAT (Latest Acceptance Time). format : yyyy-MM-dd eg : 2017-07-15.",
+                    "required": true,
+                    "vendorSchema": {
+                        "format": "toFormat:{Y-m-d}"
+                    }
+                },
+                {
+                    "name": "productCode",
+                    "type": "Select",
+                    "options": [
+                        "FAN",
+                        "FCO",
+                        "FCP",
+                        "FDG",
+                        "FTF",
+                        "FUN",
+                        "FWN",
+                        "YCO",
+                        "YCP",
+                        "YDG",
+                        "YNB",
+                        "YNZ",
+                        "YTF",
+                        "YUN",
+                        "ZXB",
+                        "ZXF",
+                        "ZXR"
+                    ],
+                    "info": "Product code for requested service and specials : 3-letter eg: YNZ.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/cargo\/getRoute\/{$data['origin']}-{$data['destination']}\/{$data['fromDate']}\/{$dat['productCode']}",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset",
+                            "directFlights"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        }
+    ]
+}
