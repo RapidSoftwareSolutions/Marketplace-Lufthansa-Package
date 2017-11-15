@@ -1332,7 +1332,7 @@
                         "ZXR"
                     ],
                     "info": "Product code for requested service and specials : 3-letter eg: YNZ.",
-                    "required": false
+                    "required": true
                 }
             ],
             "vendorRequest": {

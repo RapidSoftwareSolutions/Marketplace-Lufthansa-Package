@@ -4,7 +4,7 @@ $app->post('/api/Lufthansa/getAllCargoFlights', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','origin','destination','fromDate']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','origin','destination','fromDate','productCode']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -26,11 +26,11 @@ $app->post('/api/Lufthansa/getAllCargoFlights', function ($request, $response) {
     $client = $this->httpClient;
     $query_str = "https://api.lufthansa.com/v1/cargo/getRoute/{$data['origin']}-{$data['destination']}/{$data['fromDate']}/{$data['productCode']}";
 
-    
+
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
-    $requestParams['headers'] = ["Authorization"=>"Bearer {$data['accessToken']}"];
-     
+    $requestParams['headers'] = ["Authorization"=>"Bearer {$data['accessToken']}","Accept" => "application/json"];
+
 
     try {
         $resp = $client->get($query_str, $requestParams);
