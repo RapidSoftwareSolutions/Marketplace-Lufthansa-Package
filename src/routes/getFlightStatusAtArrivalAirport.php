@@ -21,12 +21,13 @@ $app->post('/api/Lufthansa/getFlightStatusAtArrivalAirport', function ($request,
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
     
-    $data['fromDateTime'] = \Models\Params::toFormat($data['fromDateTime'], 'Y-m-d/TH:i'); 
+    $data['fromDateTime'] = \Models\Params::toFormat($data['fromDateTime'], "Y-m-d\TH:i");
 
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/operations/flightstatus/arrivals/{$data['airportCode']}/{$data['fromDateTime']}";
+    $query_str = "https://api.lufthansa.com/v1/operations/flightstatus/arrivals/{$data['airportCode']}/{$data['fromDateTime']}";
 
-    
+//    print_r($query_str);
+//    exit();
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['accessToken']}"];

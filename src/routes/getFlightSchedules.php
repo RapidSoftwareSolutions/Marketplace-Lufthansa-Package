@@ -24,7 +24,7 @@ $app->post('/api/Lufthansa/getFlightSchedules', function ($request, $response) {
     $data['fromDateTime'] = \Models\Params::toFormat($data['fromDateTime'], 'Y-m-d/TH:i'); 
 
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/operations/schedules/{$data['origin']}/{$data['destination']}/{$data['fromDateTime']}";
+    $query_str = "https://api.lufthansa.com/v1/operations/schedules/{$data['origin']}/{$data['destination']}/{$data['fromDateTime']}";
 
     
 

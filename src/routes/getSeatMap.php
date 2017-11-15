@@ -4,7 +4,7 @@ $app->post('/api/Lufthansa/getSeatMap', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','flightNumber','origin','destination','date']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','flightNumber','origin','destination','date','cabinClass']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -17,13 +17,16 @@ $app->post('/api/Lufthansa/getSeatMap', function ($request, $response) {
     $bodyParams = [
     ];
 
+
+
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
+    $class = ['economy' => 'M','premium economy' => 'E','business' => 'C','first' => 'F'];
     
     $data['date'] = \Models\Params::toFormat($data['date'], 'Y-m-d'); 
-
+    $data['cabinClass'] = $class[$data['cabinClass']];
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/offers/seatmaps/{$data['flightNumber']}/{$data['origin']}/{$data['destination']}/{$data['date']}/";
+    $query_str = "https://api.lufthansa.com/v1/offers/seatmaps/{$data['flightNumber']}/{$data['origin']}/{$data['destination']}/{$data['date']}/{$data['cabinClass']}";
 
     
 

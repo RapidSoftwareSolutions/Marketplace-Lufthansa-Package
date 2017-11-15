@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/api/Lufthansa/getAllCountrys', function ($request, $response) {
+$app->post('/api/Lufthansa/getAllCountries', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;

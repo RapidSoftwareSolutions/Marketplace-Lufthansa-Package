@@ -72,7 +72,7 @@
             ]
         },
         {
-            "name": "getAllCountrys",
+            "name": "getAllCountries",
             "description": "Get List all countries. It is possible to request the response in a specific language.",
             "args": [
                 {
@@ -405,7 +405,7 @@
                     "required": true
                 },
                 {
-                    "name": "cityCode",
+                    "name": "airportCode",
                     "type": "String",
                     "info": "3-letter IATA airport code.Example - TXL.",
                     "required": true
@@ -443,7 +443,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airports\/{$data['cityCode']}",
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/airports\/{$data['airportCode']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"
@@ -654,6 +654,62 @@
             ],
             "vendorRequest": {
                 "url": "https:\/\/api.lufthansa.com\/v1\/references\/aircraft\/",
+                "method": "get",
+                "headers": {
+                    "Authorization": "Bearer {$data['accessToken']}"
+                },
+                "requestParameters": [
+                    {
+                        "type": "query",
+                        "parameters": [
+                            "limit",
+                            "offset"
+                        ]
+                    }
+                ]
+            },
+            "callbacks": [
+                {
+                    "name": "error",
+                    "info": "Error"
+                },
+                {
+                    "name": "success",
+                    "info": "Success"
+                }
+            ]
+        },
+        {
+            "name": "getAircraftTypeByCode",
+            "description": "Get aircraft type by code.",
+            "args": [
+                {
+                    "name": "accessToken",
+                    "type": "String",
+                    "info": "Access token form getAccessToken method.",
+                    "required": true
+                },
+                {
+                    "name": "aircraftCode",
+                    "type": "String",
+                    "info": "3-character IATA aircraft code.",
+                    "required": false
+                },
+                {
+                    "name": "limit",
+                    "type": "Number",
+                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
+                    "required": false
+                },
+                {
+                    "name": "offset",
+                    "type": "Number",
+                    "info": "Number of records skipped. Defaults to 0.",
+                    "required": false
+                }
+            ],
+            "vendorRequest": {
+                "url": "https:\/\/api.lufthansa.com\/v1\/references\/aircraft\/{$data['aircraftCode']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"
@@ -1001,7 +1057,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com\/operations\/flightstatus\/arrivals\/{$data['airportCode']}\/{$data['fromDateTime']}",
+                "url": "https:\/\/api.lufthansa.com/v1\/operations\/flightstatus\/arrivals\/{$data['airportCode']}\/{$data['fromDateTime']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"
@@ -1066,7 +1122,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com\/operations\/flightstatus\/departures\/{$data['airportCode']}\/{$data['fromDateTime']}",
+                "url": "https:\/\/api.lufthansa.com/v1\/operations\/flightstatus\/departures\/{$data['airportCode']}\/{$data['fromDateTime']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"
@@ -1147,7 +1203,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com\/operations\/schedules\/{$data['origin']}\/{$data['destination']}\/{$data['fromDateTime']}",
+                "url": "https:\/\/api.lufthansa.com/v1\/operations\/schedules\/{$data['origin']}\/{$data['destination']}\/{$data['fromDateTime']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"
@@ -1194,7 +1250,7 @@
                     "name": "aWBNumber",
                     "type": "String",
                     "info": "aWBNumber : The Air Waybill Number , format : [0-9]{8} e.g. 08002050.",
-                    "required": false
+                    "required": true
                 },
                 {
                     "name": "offset",
@@ -1280,7 +1336,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com\/cargo\/getRoute\/{$data['origin']}-{$data['destination']}\/{$data['fromDate']}\/{$dat['productCode']}",
+                "url": "https:\/\/api.lufthansa.com/v1\/cargo\/getRoute\/{$data['origin']}-{$data['destination']}\/{$data['fromDate']}\/{$dat['productCode']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"

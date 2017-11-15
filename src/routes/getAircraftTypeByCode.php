@@ -1,10 +1,10 @@
 <?php
 
-$app->post('/api/Lufthansa/getFlightStatusAtDepartureAirport', function ($request, $response) {
+$app->post('/api/Lufthansa/getAircraftTypeByCode', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','airportCode','fromDateTime']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','aircraftCode']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,25 +12,24 @@ $app->post('/api/Lufthansa/getFlightStatusAtDepartureAirport', function ($reques
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['accessToken'=>'accessToken','airportCode'=>'airportCode','fromDateTime'=>'fromDateTime'];
+    $requiredParams = ['accessToken'=>'accessToken','aircraftCode'=>'aircraftCode'];
     $optionalParams = ['limit'=>'limit','offset'=>'offset'];
     $bodyParams = [
-       'query' => ['limit','offset']
+        'query' => ['limit','offset']
     ];
 
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
-    
-    $data['fromDateTime'] = \Models\Params::toFormat($data['fromDateTime'], 'Y-m-d/TH:i'); 
+
 
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/v1/operations/flightstatus/departures/{$data['airportCode']}/{$data['fromDateTime']}";
+    $query_str = "https://api.lufthansa.com/v1/references/aircraft/{$data['aircraftCode']}";
 
-    
+
 
     $requestParams = \Models\Params::createRequestBody($data, $bodyParams);
     $requestParams['headers'] = ["Authorization"=>"Bearer {$data['accessToken']}"];
-     
+
 
     try {
         $resp = $client->get($query_str, $requestParams);

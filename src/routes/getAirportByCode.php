@@ -4,7 +4,7 @@ $app->post('/api/Lufthansa/getAirportByCode', function ($request, $response) {
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','cityCode']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','airportCode']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,7 +12,7 @@ $app->post('/api/Lufthansa/getAirportByCode', function ($request, $response) {
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['accessToken'=>'accessToken','cityCode'=>'cityCode'];
+    $requiredParams = ['accessToken'=>'accessToken','airportCode'=>'airportCode'];
     $optionalParams = ['language'=>'lang','limit'=>'limit','offset'=>'offset','LHoperated'=>'LHoperated'];
     $bodyParams = [
        'query' => ['limit','offset','lang','LHoperated']
@@ -23,7 +23,7 @@ $app->post('/api/Lufthansa/getAirportByCode', function ($request, $response) {
     
 
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/v1/references/airports/{$data['cityCode']}";
+    $query_str = "https://api.lufthansa.com/v1/references/airports/{$data['airportCode']}";
 
     
 

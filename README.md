@@ -27,7 +27,7 @@ Access to our services is controlled via tokens (Oauth 2.0). To get a token you 
 | clientId    | credentials| Your client id.
 | clientSecret| credentials| Your client secret.
 
-## Lufthansa.getAllCountrys
+## Lufthansa.getAllCountries
 Get List all countries. It is possible to request the response in a specific language.
 
 | Field      | Type  | Description
@@ -86,7 +86,7 @@ Get airport by code. All airports response is very large. It is possible to requ
 | Field      | Type  | Description
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
-| cityCode   | String| 3-letter IATA airport code.Example - TXL.
+| airportCode   | String| 3-letter IATA airport code.Example - TXL.
 | language   | String| 2 letter ISO 3166-1 language code.
 | limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
 | offset     | Number| Number of records skipped. Defaults to 0.
@@ -126,6 +126,16 @@ Get List all aircraft types.
 | Field      | Type  | Description
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
+| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
+| offset     | Number| Number of records skipped. Defaults to 0.
+
+## Lufthansa.getAircraftTypeByCode
+Get aircraft type by code.
+
+| Field      | Type  | Description
+|------------|-------|----------
+| accessToken| String| Access token form getAccessToken method.
+| aircraftCode| String| 3-character IATA aircraft code.
 | limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
 | offset     | Number| Number of records skipped. Defaults to 0.
 

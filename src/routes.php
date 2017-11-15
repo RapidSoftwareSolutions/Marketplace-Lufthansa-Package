@@ -2,7 +2,7 @@
 $routes = [
     'metadata',
     'getAccessToken',
-    'getAllCountrys',
+    'getAllCountries',
     'getCountryByCode',
     'getAllCities',
     'getCityByCode',
@@ -20,7 +20,8 @@ $routes = [
     'getFlightStatusAtDepartureAirport',
     'getFlightSchedules',
     'getShipmentTracking',
-    'getAllCargoFlights'
+    'getAllCargoFlights',
+    'getAircraftTypeByCode'
 ];
 foreach($routes as $file) {
     require __DIR__ . '/../src/routes/'.$file.'.php';
