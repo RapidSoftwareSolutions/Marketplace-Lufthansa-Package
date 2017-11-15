@@ -84,7 +84,6 @@ Get airport by code. All airports response is very large. It is possible to requ
 | accessToken| String| Access token form getAccessToken method.
 | airportCode   | String| 3-letter IATA airport code.Example - TXL.
 | language   | String| 2 letter ISO 3166-1 language code.
-| LHoperated | Select| Restrict the results to locations with flights operated by LH (false=0, true=1). 
 
 ## Lufthansa.getNearestAirports
 List the 5 closest airports to the given latitude and longitude, irrespective of the radius of the reference point.
@@ -142,14 +141,14 @@ Cabin layout and seat characteristics.
 | cabinClass  | Select    | Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.
 
 ## Lufthansa.getLoungeInformation
-Get List all aircraft types.
+Get lounge information.
 
 | Field      | Type  | Description
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
 | language   | String| 2 letter ISO 3166-1 language code.
 | location   | String| 3-leter IATA airport or city code (e.g. 'ZRH').
-| cabinClass | Select| Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.
+| cabinClass | Select| Cabin class. Some flights have fewer classes.
 
 ## Lufthansa.getFlightStatus
 Get status of a particular flight (boarding, delayed, etc.).

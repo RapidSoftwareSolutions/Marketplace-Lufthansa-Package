@@ -394,16 +394,6 @@
                     "vendorSchema": {
                         "name": "lang"
                     }
-                },
-                {
-                    "name": "LHoperated",
-                    "type": "Select",
-                    "options": [
-                        "true",
-                        "false"
-                    ],
-                    "info": "Restrict the results to locations with flights operated by LH (false=0, true=1). ",
-                    "required": false
                 }
             ],
             "vendorRequest": {
@@ -1177,12 +1167,6 @@
                     "type": "String",
                     "info": "aWBNumber : The Air Waybill Number , format : [0-9]{8} e.g. 08002050.",
                     "required": true
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
                 }
             ],
             "vendorRequest": {
