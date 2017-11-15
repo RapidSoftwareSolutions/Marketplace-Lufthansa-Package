@@ -24,7 +24,7 @@ $app->post('/api/Lufthansa/getAllCargoFlights', function ($request, $response) {
     $data['fromDate'] = \Models\Params::toFormat($data['fromDate'], 'Y-m-d'); 
 
     $client = $this->httpClient;
-    $query_str = "https://api.lufthansa.com/v1/cargo/getRoute/{$data['origin']}-{$data['destination']}/{$data['fromDate']}/{$dat['productCode']}";
+    $query_str = "https://api.lufthansa.com/v1/cargo/getRoute/{$data['origin']}-{$data['destination']}/{$data['fromDate']}/{$data['productCode']}";
 
     
 

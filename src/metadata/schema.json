@@ -1040,7 +1040,7 @@
                     "info": "Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm).",
                     "required": true,
                     "vendorSchema": {
-                        "format": "toFormat:{Y-m-d\/TH:i}"
+                        "format": "toFormat:{Y-m-d\\TH:i}"
                     }
                 },
                 {
@@ -1105,7 +1105,7 @@
                     "info": "Start of time range in local time of arrival airport (YYYY-MM-DDTHH:mm).",
                     "required": true,
                     "vendorSchema": {
-                        "format": "toFormat:{Y-m-d\/TH:i}"
+                        "format": "toFormat:{Y-m-d\\TH:i}"
                     }
                 },
                 {
@@ -1186,7 +1186,7 @@
                     "info": "Local departure date and optionally departure time (YYYY-MM-DD or YYYY-MM-DDTHH:mm). When not provided, time is assumed to be 00:01.",
                     "required": true,
                     "vendorSchema": {
-                        "format": "toFormat:{Y-m-d\/TH:i}"
+                        "format": "toFormat:{Y-m-d\\TH:i}"
                     }
                 },
                 {
@@ -1336,7 +1336,7 @@
                 }
             ],
             "vendorRequest": {
-                "url": "https:\/\/api.lufthansa.com/v1\/cargo\/getRoute\/{$data['origin']}-{$data['destination']}\/{$data['fromDate']}\/{$dat['productCode']}",
+                "url": "https:\/\/api.lufthansa.com/v1\/cargo\/getRoute\/{$data['origin']}-{$data['destination']}\/{$data['fromDate']}\/{$data['productCode']}",
                 "method": "get",
                 "headers": {
                     "Authorization": "Bearer {$data['accessToken']}"

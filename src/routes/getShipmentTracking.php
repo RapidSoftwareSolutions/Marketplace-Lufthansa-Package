@@ -4,7 +4,7 @@ $app->post('/api/Lufthansa/getShipmentTracking', function ($request, $response) 
 
     $settings = $this->settings;
     $checkRequest = $this->validation;
-    $validateRes = $checkRequest->validate($request, ['accessToken','aWBPrefix']);
+    $validateRes = $checkRequest->validate($request, ['accessToken','aWBPrefix','aWBNumber']);
 
     if(!empty($validateRes) && isset($validateRes['callback']) && $validateRes['callback']=='error') {
         return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($validateRes);
@@ -12,8 +12,8 @@ $app->post('/api/Lufthansa/getShipmentTracking', function ($request, $response) 
         $post_data = $validateRes;
     }
 
-    $requiredParams = ['accessToken'=>'accessToken','aWBPrefix'=>'aWBPrefix'];
-    $optionalParams = ['aWBNumber'=>'aWBNumber','offset'=>'offset'];
+    $requiredParams = ['accessToken'=>'accessToken','aWBPrefix'=>'aWBPrefix','aWBNumber'=>'aWBNumber'];
+    $optionalParams = ['offset'=>'offset'];
     $bodyParams = [
     ];
 
@@ -76,7 +76,6 @@ $app->post('/api/Lufthansa/getShipmentTracking', function ($request, $response) 
         $result['contextWrites']['to']['status_msg'] = 'Something went wrong inside the package.';
 
     }
-
     return $response->withHeader('Content-type', 'application/json')->withStatus(200)->withJson($result);
 
 });
