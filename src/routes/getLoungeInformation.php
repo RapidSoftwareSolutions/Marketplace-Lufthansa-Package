@@ -18,10 +18,12 @@ $app->post('/api/Lufthansa/getLoungeInformation', function ($request, $response)
        'query' => ['cabinClass','tierCode','lang']
     ];
 
+    $class = ['economy' => 'M','premium economy' => 'E','business' => 'C','first' => 'F'];
+
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
 
     
-
+    $data['cabinClass'] = $class[$data['cabinClass']];
     $client = $this->httpClient;
     $query_str = "https://api.lufthansa.com/v1/offers/lounges/{$data['location']}";
 

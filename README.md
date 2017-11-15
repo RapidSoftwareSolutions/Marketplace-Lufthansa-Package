@@ -45,8 +45,6 @@ Get countries by code. It is possible to request the response in a specific lang
 | accessToken| String| Access token form getAccessToken method.
 | countryCode| String| 2-letter ISO 3166-1 country code. Example - DK.
 | language   | String| 2 letter ISO 3166-1 language code.
-| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
-| offset     | Number| Number of records skipped. Defaults to 0.
 
 ## Lufthansa.getAllCities
 List all cities. It is possible to request the response in a specific language.
@@ -66,8 +64,6 @@ Get one specific city. It is possible to request the response in a specific lang
 | accessToken| String| Access token form getAccessToken method.
 | cityCode   | String| 3-letter IATA city code.Example - BER.
 | language   | String| 2 letter ISO 3166-1 language code.
-| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
-| offset     | Number| Number of records skipped. Defaults to 0.
 
 ## Lufthansa.getAllAirports
 Get all airports. All airports response is very large. It is possible to request the response in a specific language.
@@ -88,8 +84,6 @@ Get airport by code. All airports response is very large. It is possible to requ
 | accessToken| String| Access token form getAccessToken method.
 | airportCode   | String| 3-letter IATA airport code.Example - TXL.
 | language   | String| 2 letter ISO 3166-1 language code.
-| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
-| offset     | Number| Number of records skipped. Defaults to 0.
 | LHoperated | Select| Restrict the results to locations with flights operated by LH (false=0, true=1). 
 
 ## Lufthansa.getNearestAirports
@@ -117,8 +111,6 @@ Get airline by code.
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
 | airlineCode| String| 2-character IATA airline/carrier code.Example - LH.
-| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
-| offset     | Number| Number of records skipped. Defaults to 0.
 
 ## Lufthansa.getAllAircraftTypes
 Get List all aircraft types.
@@ -136,8 +128,6 @@ Get aircraft type by code.
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
 | aircraftCode| String| 3-character IATA aircraft code.
-| limit      | Number| Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).
-| offset     | Number| Number of records skipped. Defaults to 0.
 
 ## Lufthansa.getSeatMap
 Cabin layout and seat characteristics.
@@ -160,7 +150,6 @@ Get List all aircraft types.
 | language   | String| 2 letter ISO 3166-1 language code.
 | location   | String| 3-leter IATA airport or city code (e.g. 'ZRH').
 | cabinClass | Select| Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.
-| tierCode   | Select| Frequent flyer level ('FTL', 'SGC', 'SEN', 'HON').
 
 ## Lufthansa.getFlightStatus
 Get status of a particular flight (boarding, delayed, etc.).
@@ -227,8 +216,7 @@ With this tracking service you can easily retrieve your shipment or flight statu
 |------------|-------|----------
 | accessToken| String| Access token form getAccessToken method.
 | aWBPrefix  | String| aWBPrefix : Represents the airline that is the owner of this AWB, i.e. `020` = Lufthansa Cargo, format : [0-9]{3} e.g. 020.
-| aWBNumber  | String| aWBNumber : The Air Waybill Number , format : [0-9]{8} e.g. 08002050.
-| offset     | Number| Number of records skipped. Defaults to 0.
+| aWBNumber  | String| aWBNumber : The Air Waybill Number , format : 0-9{8} e.g. 08002050.
 
 ## Lufthansa.getAllCargoFlights
 Retrieve a list of all possible flights (both direct and connecting) between two airports on a given date. Routes are available for today and up to days in the future.

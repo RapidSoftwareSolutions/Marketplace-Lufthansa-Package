@@ -155,18 +155,6 @@
                     "vendorSchema": {
                         "name": "lang"
                     }
-                },
-                {
-                    "name": "limit",
-                    "type": "Number",
-                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
-                    "required": false
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
                 }
             ],
             "vendorRequest": {
@@ -281,18 +269,6 @@
                     "vendorSchema": {
                         "name": "lang"
                     }
-                },
-                {
-                    "name": "limit",
-                    "type": "Number",
-                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
-                    "required": false
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
                 }
             ],
             "vendorRequest": {
@@ -418,18 +394,6 @@
                     "vendorSchema": {
                         "name": "lang"
                     }
-                },
-                {
-                    "name": "limit",
-                    "type": "Number",
-                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
-                    "required": false
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
                 },
                 {
                     "name": "LHoperated",
@@ -588,18 +552,6 @@
                     "type": "String",
                     "info": "2-character IATA airline\/carrier code.Example - LH.",
                     "required": true
-                },
-                {
-                    "name": "limit",
-                    "type": "Number",
-                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
-                    "required": false
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
                 }
             ],
             "vendorRequest": {
@@ -693,19 +645,7 @@
                     "name": "aircraftCode",
                     "type": "String",
                     "info": "3-character IATA aircraft code.",
-                    "required": false
-                },
-                {
-                    "name": "limit",
-                    "type": "Number",
-                    "info": "Number of records returned per request. Defaults to 20, maximum is 100 (if a value bigger than 100 is given, 100 will be taken).",
-                    "required": false
-                },
-                {
-                    "name": "offset",
-                    "type": "Number",
-                    "info": "Number of records skipped. Defaults to 0.",
-                    "required": false
+                    "required": true
                 }
             ],
             "vendorRequest": {
@@ -782,7 +722,7 @@
                         "first"
                     ],
                     "info": "Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.",
-                    "required": false
+                    "required": true
                 }
             ],
             "vendorRequest": {
@@ -806,7 +746,7 @@
         },
         {
             "name": "getLoungeInformation",
-            "description": "Get List all aircraft types.",
+            "description": "Get lounge information.",
             "args": [
                 {
                     "name": "accessToken",
@@ -833,24 +773,10 @@
                     "name": "cabinClass",
                     "type": "Select",
                     "options": [
-                        "economy",
-                        "premium economy",
                         "business",
                         "first"
                     ],
-                    "info": "Cabin class: 'M', 'E', 'C', 'F'. Some flights have fewer classes.",
-                    "required": false
-                },
-                {
-                    "name": "tierCode",
-                    "type": "Select",
-                    "options": [
-                        "frequent traveller",
-                        "star alliance gold",
-                        "senator",
-                        "HON circle member"
-                    ],
-                    "info": "Frequent flyer level ('FTL', 'SGC', 'SEN', 'HON').",
+                    "info": "Cabin class.Some flights have fewer classes.",
                     "required": false
                 }
             ],
